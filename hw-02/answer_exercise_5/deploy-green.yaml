@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-server-green
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      name: nginx-server
+  template:
+    metadata:
+      labels:
+        name: nginx-server
+        role: green
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.19.3
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
