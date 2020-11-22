@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-server
+  labels:
+    app: nginx-server
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nginx-server
+  template:
+    metadata:
+      labels:
+        app: nginx-server
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.19.4
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "20m"
+              memory: "128Mi"
+            requests:
+              memory: "20Mi"
+              cpu: "20m"
+
+
